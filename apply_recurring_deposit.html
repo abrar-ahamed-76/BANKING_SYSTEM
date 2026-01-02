@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Apply Recurring Deposit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sbi-header">
+            <h1>SBI Apply for Recurring Deposit</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.monthly_amount.label }}<br>
+                {{ form.monthly_amount() }}
+            </div>
+            <div>
+                {{ form.term_months.label }}<br>
+                {{ form.term_months() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Create Recurring Deposit</button>
+        </form>
+        <a href="{{ url_for('recurring_deposits') }}">Back to Recurring Deposits</a>
+    </div>
+</body>
+</html>

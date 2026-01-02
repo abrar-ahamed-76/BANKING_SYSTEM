@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Cheque Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="cheque-management-container">
+        <div class="sbi-header">
+            <h1>SBI Cheque Management</h1>
+        </div>
+        <a href="{{ url_for('request_cheque') }}" class="btn btn-primary">Request Cheque Book</a>
+        <h2>Your Cheques</h2>
+        {% for cheque in cheques %}
+        <div class="cheque">
+            <p>Cheque Number: {{ cheque.cheque_number }}</p>
+            <p>Amount: ${{ cheque.amount }}</p>
+            <p>Payee: {{ cheque.payee }}</p>
+            <p>Status: {{ cheque.status }}</p>
+        </div>
+        {% endfor %}
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

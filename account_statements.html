@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Account Statements</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="account-statements-container">
+        <div class="sbi-header">
+            <h1>SBI Account Statements</h1>
+        </div>
+        <a href="{{ url_for('generate_statement') }}" class="btn btn-primary">Generate New Statement</a>
+        <h2>Your Statements</h2>
+        <div class="statement">
+            <p>Period: 2025-12-21 to 2026-11-21</p>
+            <p>Generated: 2025-12-30 14:20:41</p>
+            <a href="#" class="btn btn-info">Download</a>
+        </div>
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

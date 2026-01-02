@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Shridevi Banking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav">
+        <a href="{{ url_for('dashboard') }}" class="nav-link">
+            <i class="fas fa-home"></i> Dashboard
+        </a>
+        <a href="{{ url_for('deposit') }}" class="nav-link">
+            <i class="fas fa-plus-circle"></i> Deposit
+        </a>
+        <a href="{{ url_for('withdraw') }}" class="nav-link">
+            <i class="fas fa-minus-circle"></i> Withdraw
+        </a>
+        <a href="{{ url_for('transfer') }}" class="nav-link">
+            <i class="fas fa-exchange-alt"></i> Transfer
+        </a>
+        <a href="{{ url_for('transactions') }}" class="nav-link">
+            <i class="fas fa-list"></i> Transactions
+        </a>
+        <a href="{{ url_for('logout') }}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We're here to help! Get in touch with us through any of the methods below.</p>
+
+        <div class="contact-grid">
+            <div class="contact-card slide-up">
+                <i class="fas fa-phone"></i>
+                <h3>Phone Support</h3>
+                <p>Call our customer service team for immediate assistance.</p>
+                <div class="contact-info">
+                    <p><strong>Toll-Free:</strong> 1-800-SBI-HELP</p>
+                    <p><strong>Business Hours:</strong> Mon-Fri 9AM-6PM</p>
+                    <p><strong>Emergency:</strong> 1-800-SBI-EMERGENCY (24/7)</p>
+                </div>
+            </div>
+
+            <div class="contact-card slide-up">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Support</h3>
+                <p>Send us an email and we'll respond within 24 hours.</p>
+                <div class="contact-info">
+                    <p><strong>General Inquiries:</strong> support@sbi-bank.com</p>
+                    <p><strong>Technical Issues:</strong> tech@sbi-bank.com</p>
+                    <p><strong>Business Banking:</strong> business@sbi-bank.com</p>
+                </div>
+            </div>
+
+            <div class="contact-card slide-up">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Our Branches</h3>
+                <p>Find the nearest SBI branch for in-person assistance.</p>
+                <div class="contact-info">
+                    <p><strong>Main Branch:</strong></p>
+                    <p>123 Banking Street<br>Financial District<br>Mumbai, MH 400001</p>
+                    <a href="#" class="btn btn-primary">Find Branch Locator</a>
+                </div>
+            </div>
+
+            <div class="contact-card slide-up">
+                <i class="fas fa-comments"></i>
+                <h3>Live Chat</h3>
+                <p>Chat with our virtual assistant or a representative.</p>
+                <div class="contact-info">
+                    <p>Available 24/7 for account-related queries.</p>
+                    <button class="btn btn-success" onclick="startChat()">Start Live Chat</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card slide-up">
+            <h3>Send us a Message</h3>
+            <form method="POST" action="{{ url_for('contact') }}">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" class="form-control" required>
+                        <option value="">Select a subject</option>
+                        <option value="account">Account Issues</option>
+                        <option value="transaction">Transaction Problems</option>
+                        <option value="loan">Loan Inquiries</option>
+                        <option value="card">Credit Card Issues</option>
+                        <option value="technical">Technical Support</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+
+        <div class="card slide-up">
+            <h3>Frequently Asked Questions</h3>
+            <p>Check our <a href="{{ url_for('help') }}">Help Center</a> for quick answers to common questions.</p>
+            <div class="faq-preview">
+                <div class="faq-item">
+                    <h4>How do I reset my password?</h4>
+                    <p>Use the "Forgot Password" link on the login page or contact support.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How long do transfers take?</h4>
+                    <p>Internal transfers are instant. External transfers may take 1-3 business days.</p>
+                </div>
+            </div>
+            <a href="{{ url_for('help') }}" class="btn btn-secondary">View All FAQs</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        function startChat() {
+            alert('Live chat feature coming soon! Please use phone or email support for now.');
+        }
+    </script>
+</body>
+</html>

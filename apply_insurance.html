@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Apply Insurance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sbi-header">
+            <h1>SBI Apply for Insurance</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.type.label }}<br>
+                {{ form.type() }}
+            </div>
+            <div>
+                {{ form.coverage_amount.label }}<br>
+                {{ form.coverage_amount() }}
+            </div>
+            <div>
+                {{ form.term_years.label }}<br>
+                {{ form.term_years() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
+        <a href="{{ url_for('insurance') }}">Back to Insurance</a>
+    </div>
+</body>
+</html>

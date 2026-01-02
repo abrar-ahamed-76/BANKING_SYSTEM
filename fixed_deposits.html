@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Deposits</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Fixed Deposits</h1>
+        <p>Welcome, {{ current_user.username }}!</p>
+        <a href="{{ url_for('apply_fixed_deposit') }}" class="btn btn-primary">Apply for Fixed Deposit</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        <h2>Your Fixed Deposits</h2>
+        {% if fixed_deposits %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Interest Rate</th>
+                    <th>Term (Months)</th>
+                    <th>Maturity Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fd in fixed_deposits %}
+                <tr>
+                    <td>${{ fd.amount }}</td>
+                    <td>{{ fd.interest_rate }}%</td>
+                    <td>{{ fd.term_months }}</td>
+                    <td>{{ fd.maturity_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ fd.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You have no fixed deposits.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

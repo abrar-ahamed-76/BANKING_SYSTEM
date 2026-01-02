@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Insurance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="insurance-container">
+        <div class="sbi-header">
+            <h1>SBI Insurance</h1>
+        </div>
+        <a href="{{ url_for('apply_insurance') }}" class="btn btn-primary">Apply for Insurance</a>
+        <h2>Your Insurance Policies</h2>
+        {% for policy in insurance %}
+        <div class="insurance-policy">
+            <p>Type: {{ policy.type }}</p>
+            <p>Coverage: ${{ policy.coverage_amount }}</p>
+            <p>Premium: ${{ policy.premium_amount }}/month</p>
+            <p>Term: {{ policy.term_years }} years</p>
+            <p>Status: {{ policy.status }}</p>
+        </div>
+        {% endfor %}
+        <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

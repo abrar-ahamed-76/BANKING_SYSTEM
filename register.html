@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="register-container">
+        <div class="sbi-header">
+            <h1>SBI Account Registration</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.username.label }}<br>
+                {{ form.username() }}
+            </div>
+            <div>
+                {{ form.email.label }}<br>
+                {{ form.email() }}
+            </div>
+            <div>
+                {{ form.password.label }}<br>
+                {{ form.password() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Register with SBI</button>
+        </form>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</body>
+</html>

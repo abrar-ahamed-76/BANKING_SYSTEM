@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Transaction History</h1>
+        <p>Welcome, {{ current_user.username }}!</p>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+        <h2>Your Transactions</h2>
+        {% if transactions %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Timestamp</th>
+                    <th>Account</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.transaction_type }}</td>
+                    <td>{{ transaction.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ transaction.account.account_number }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>You have no transactions.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-form">
+        <h1>Login</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label }}
+                {{ form.username() }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Shridevi Banking System</h4>
+                <p>Your trusted partner for all banking needs.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="{{ url_for('help') }}">Help Center</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>Email: support@sbi.com</p>
+                <p>Phone: 1800-123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Shridevi Banking System. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

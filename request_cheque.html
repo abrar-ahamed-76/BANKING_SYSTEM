@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Request Cheque</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sbi-header">
+            <h1>SBI Request Cheque Book</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.number_of_cheques.label }}<br>
+                {{ form.number_of_cheques() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Request</button>
+        </form>
+        <a href="{{ url_for('cheque_management') }}">Back to Cheque Management</a>
+    </div>
+</body>
+</html>

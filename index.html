@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shridevi Banking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="index-container">
+        <div class="sbi-header">
+            <h1>Welcome to Shridevi Banking System</h1>
+            <p>Your trusted banking partner</p>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Register</a>
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+        </div>
+    </div>
+</body>
+</html>

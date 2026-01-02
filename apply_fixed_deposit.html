@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Apply Fixed Deposit</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sbi-header">
+            <h1>SBI Apply for Fixed Deposit</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.amount.label }}<br>
+                {{ form.amount() }}
+            </div>
+            <div>
+                {{ form.term_months.label }}<br>
+                {{ form.term_months() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Create Fixed Deposit</button>
+        </form>
+        <a href="{{ url_for('fixed_deposits') }}">Back to Fixed Deposits</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Generate Statement</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sbi-header">
+            <h1>SBI Generate Account Statement</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.start_date.label }}<br>
+                {{ form.start_date() }}
+            </div>
+            <div>
+                {{ form.end_date.label }}<br>
+                {{ form.end_date() }}
+            </div>
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </form>
+        <a href="{{ url_for('account_statements') }}">Back to Statements</a>
+    </div>
+</body>
+</html>

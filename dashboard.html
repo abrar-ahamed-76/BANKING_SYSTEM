@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SBI Banking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="nav-left">
+            <a href="{{ url_for('dashboard') }}" class="nav-link">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="{{ url_for('deposit') }}" class="nav-link">
+                <i class="fas fa-plus-circle"></i> Deposit
+            </a>
+            <a href="{{ url_for('withdraw') }}" class="nav-link">
+                <i class="fas fa-minus-circle"></i> Withdraw
+            </a>
+            <a href="{{ url_for('transfer') }}" class="nav-link">
+                <i class="fas fa-exchange-alt"></i> Transfer
+            </a>
+            <a href="{{ url_for('transactions') }}" class="nav-link">
+                <i class="fas fa-list"></i> Transactions
+            </a>
+        </div>
+        <div class="nav-right">
+            <div class="profile-dropdown">
+                <button class="profile-btn" onclick="toggleProfileDropdown()">
+                    {% if current_user.profile_image %}
+                        <img src="{{ url_for('static', filename='images/' + current_user.profile_image) }}" alt="Profile" class="profile-avatar">
+                    {% else %}
+                        <div class="profile-avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    {% endif %}
+                    <span class="profile-name">{{ current_user.username }}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="profile-dropdown-content" id="profileDropdown">
+                    <div class="profile-header">
+                        <div class="profile-info">
+                            <h4>{{ current_user.username }}</h4>
+                            <p>{{ current_user.email }}</p>
+                            <span class="account-type">Premium Account</span>
+                        </div>
+                    </div>
+                    <div class="profile-menu">
+                        <a href="#personal-details" onclick="showPersonalDetails()">
+                            <i class="fas fa-user-circle"></i> Personal Details
+                        </a>
+                        <a href="{{ url_for('upload_image') }}">
+                            <i class="fas fa-camera"></i> Update Profile Picture
+                        </a>
+                        <a href="{{ url_for('change_password') }}">
+                            <i class="fas fa-key"></i> Change Password
+                        </a>
+                        <a href="#account-settings" onclick="showAccountSettings()">
+                            <i class="fas fa-cog"></i> Account Settings
+                        </a>
+                        <a href="#security" onclick="showSecuritySettings()">
+                            <i class="fas fa-shield-alt"></i> Security Settings
+                        </a>
+                        <a href="#notifications" onclick="showNotificationSettings()">
+                            <i class="fas fa-bell"></i> Notification Preferences
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('help') }}">
+                            <i class="fas fa-question-circle"></i> Help & Support
+                        </a>
+                        <a href="{{ url_for('logout') }}">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Dashboard</h1>
+        <p>Welcome back, {{ current_user.username }}!</p>
+
+        <!-- Dashboard Cards Grid -->
+        <div class="dashboard-grid">
+            {% for account in accounts %}
+            <div class="dashboard-card slide-up">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="dashboard-card-value">${{ "%.2f"|format(account.balance) }}</div>
+                <div class="dashboard-card-label">Account Balance</div>
+                <small>****{{ account.account_number[-4:] }}</small>
+            </div>
+            {% endfor %}
+
+            <div class="dashboard-card slide-up">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="dashboard-card-value">{{ accounts|length }}</div>
+                <div class="dashboard-card-label">Active Accounts</div>
+            </div>
+
+            <div class="dashboard-card slide-up">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="dashboard-card-value">
+                    <span class="security-indicator security-secure">Secure</span>
+                </div>
+                <div class="dashboard-card-label">Account Status</div>
+            </div>
+
+            <div class="dashboard-card slide-up">
+                <div class="dashboard-card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="dashboard-card-value">{{ current_date.day }}</div>
+                <div class="dashboard-card-label">Today's Date</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <h2>Quick Actions</h2>
+        <div class="quick-actions-grid">
+            <a href="{{ url_for('deposit') }}" class="quick-action-btn">
+                <i class="fas fa-plus-circle"></i>
+                <span>Deposit</span>
+            </a>
+            <a href="{{ url_for('withdraw') }}" class="quick-action-btn">
+                <i class="fas fa-minus-circle"></i>
+                <span>Withdraw</span>
+            </a>
+            <a href="{{ url_for('transfer') }}" class="quick-action-btn">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transfer</span>
+            </a>
+            <a href="{{ url_for('transactions') }}" class="quick-action-btn">
+                <i class="fas fa-list"></i>
+                <span>History</span>
+            </a>
+            <a href="{{ url_for('bill_payments') }}" class="quick-action-btn">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Pay Bills</span>
+            </a>
+            <a href="{{ url_for('account_statements') }}" class="quick-action-btn">
+                <i class="fas fa-file-alt"></i>
+                <span>Statements</span>
+            </a>
+        </div>
+
+        <!-- Recent Transactions Preview -->
+        <div class="card slide-up">
+            <h3>Recent Transactions</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ current_date.strftime("%Y-%m-%d") }}</td>
+                            <td>Grocery Store</td>
+                            <td><span class="transaction-category category-food">Food</span></td>
+                            <td class="text-danger">-$85.50</td>
+                        </tr>
+                        <tr>
+                            <td>{{ yesterday.strftime("%Y-%m-%d") }}</td>
+                            <td>Salary Deposit</td>
+                            <td><span class="transaction-category category-income">Income</span></td>
+                            <td class="text-success">+$3,200.00</td>
+                        </tr>
+                        <tr>
+                            <td>{{ two_days_ago.strftime("%Y-%m-%d") }}</td>
+                            <td>Gas Station</td>
+                            <td><span class="transaction-category category-transport">Transport</span></td>
+                            <td class="text-danger">-$45.20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <a href="{{ url_for('transactions') }}" class="btn btn-primary">View All Transactions</a>
+        </div>
+
+        <!-- Quick Deposit/Withdraw -->
+        <div class="quick-actions slide-up">
+            <h3>Quick Deposit</h3>
+            <a href="{{ url_for('deposit') }}?amount=10" class="btn btn-success quick-amount">₹10</a>
+            <a href="{{ url_for('deposit') }}?amount=50" class="btn btn-success quick-amount">₹50</a>
+            <a href="{{ url_for('deposit') }}?amount=100" class="btn btn-success quick-amount">₹100</a>
+            <a href="{{ url_for('deposit') }}?amount=500" class="btn btn-success quick-amount">₹500</a>
+            <a href="{{ url_for('deposit') }}?amount=1000" class="btn btn-success quick-amount">₹1000</a>
+        </div>
+
+        <div class="quick-actions slide-up">
+            <h3>Quick Withdraw</h3>
+            <a href="{{ url_for('withdraw') }}?amount=10" class="btn btn-warning quick-amount">₹10</a>
+            <a href="{{ url_for('withdraw') }}?amount=50" class="btn btn-warning quick-amount">₹50</a>
+            <a href="{{ url_for('withdraw') }}?amount=100" class="btn btn-warning quick-amount">₹100</a>
+            <a href="{{ url_for('withdraw') }}?amount=500" class="btn btn-warning quick-amount">₹500</a>
+            <a href="{{ url_for('withdraw') }}?amount=1000" class="btn btn-warning quick-amount">₹1000</a>
+        </div>
+
+        <!-- All Banking Services -->
+        <h2>All Banking Services</h2>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="window.location.href='{{ url_for('deposit') }}'">Deposit</button>
+            <button class="btn btn-secondary" onclick="window.location.href='{{ url_for('withdraw') }}'">Withdraw</button>
+            <button class="btn btn-info" onclick="window.location.href='{{ url_for('transfer') }}'">Transfer</button>
+            <button class="btn btn-warning" onclick="window.location.href='{{ url_for('transactions') }}'">Transactions</button>
+            <button class="btn btn-success" onclick="window.location.href='{{ url_for('loans') }}'">Loans</button>
+            <button class="btn btn-primary" onclick="window.location.href='{{ url_for('credit_cards') }}'">Credit Cards</button>
+            <button class="btn btn-info" onclick="window.location.href='{{ url_for('fixed_deposits') }}'">Fixed Deposits</button>
+            <button class="btn btn-success" onclick="window.location.href='{{ url_for('recurring_deposits') }}'">Recurring Deposits</button>
+            <button class="btn btn-warning" onclick="window.location.href='{{ url_for('bill_payments') }}'">Bill Payments</button>
+            <button class="btn btn-secondary" onclick="window.location.href='{{ url_for('notifications') }}'">Notifications</button>
+            <button class="btn btn-info" onclick="window.location.href='{{ url_for('insurance') }}'">Insurance</button>
+            <button class="btn btn-success" onclick="window.location.href='{{ url_for('investments') }}'">Investments</button>
+            <button class="btn btn-primary" onclick="window.location.href='{{ url_for('cheque_management') }}'">Cheque Management</button>
+            <button class="btn btn-warning" onclick="window.location.href='{{ url_for('account_statements') }}'">Account Statements</button>
+            <button class="btn btn-primary" onclick="window.location.href='{{ url_for('change_password') }}'">Change Password</button>
+            <button class="btn btn-warning" onclick="window.location.href='{{ url_for('help') }}'">Help Center</button>
+            <button class="btn btn-secondary" onclick="window.location.href='{{ url_for('contact') }}'">Contact Us</button>
+            <button class="btn btn-danger" onclick="window.location.href='{{ url_for('logout') }}'">Logout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Shridevi Banking System</h4>
+                <p>Your trusted partner for all banking needs.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                    <li><a href="{{ url_for('transactions') }}">Transactions</a></li>
+                    <li><a href="{{ url_for('account_statements') }}">Statements</a></li>
+                    <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="{{ url_for('help') }}">Help Center</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>Email: support@sbi.com</p>
+                <p>Phone: 1800-123-4567</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Shridevi Banking System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

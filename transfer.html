@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Transfer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="transfer-container">
+        <div class="sbi-header">
+            <h1>SBI Transfer Money</h1>
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.from_account_id.label }}<br>
+                {{ form.from_account_id() }}
+            </div>
+            <div>
+                {{ form.to_account_id.label }}<br>
+                {{ form.to_account_id() }}
+            </div>
+            <div>
+                {{ form.amount.label }} (INR)<br>
+                {{ form.amount() }}
+            </div>
+            <button type="submit" class="btn btn-info">Transfer</button>
+        </form>
+        <a href="{{ url_for('dashboard') }}">Back to SBI Dashboard</a>
+    </div>
+</body>
+</html>

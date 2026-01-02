@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Credit Card</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Apply for Credit Card</h1>
+        <p>Welcome, {{ current_user.username }}!</p>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.limit.label }}
+                {{ form.limit(class="form-control") }}
+                {% if form.limit.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.limit.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        <a href="{{ url_for('credit_cards') }}" class="btn btn-secondary">Back to Credit Cards</a>
+    </div>
+</body>
+</html>

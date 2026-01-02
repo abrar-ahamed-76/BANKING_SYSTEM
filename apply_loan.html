@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Loan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Apply for Loan</h1>
+        <p>Welcome, {{ current_user.username }}!</p>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.amount.label }}
+                {{ form.amount(class="form-control") }}
+                {% if form.amount.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.amount.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.term_months.label }}
+                {{ form.term_months(class="form-control") }}
+                {% if form.term_months.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.term_months.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+        <a href="{{ url_for('loans') }}" class="btn btn-secondary">Back to Loans</a>
+    </div>
+</body>
+</html>

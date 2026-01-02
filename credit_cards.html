@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Credit Cards</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="credit-cards-container">
+        <div class="sbi-header">
+            <h1>SBI Credit Cards</h1>
+        </div>
+        <a href="{{ url_for('apply_credit_card') }}" class="btn btn-primary">Apply for Credit Card</a>
+        <h2>Your Credit Cards</h2>
+        {% for card in cards %}
+        <div class="credit-card">
+            <p>Card Number: **** **** **** {{ card.card_number[-4:] }}</p>
+            <p>Expiry: {{ card.expiry_date }}</p>
+            <p>Limit: ₹{{ card.limit }}</p>
+            <p>Balance: ₹{{ card.balance }}</p>
+        </div>
+        {% endfor %}
+        <a href="{{ url_for('dashboard') }}">Back to SBI Dashboard</a>
+    </div>
+</body>
+</html>

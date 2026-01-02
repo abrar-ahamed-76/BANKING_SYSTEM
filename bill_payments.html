@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Bill Payments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="bill-payments-container">
+        <div class="sbi-header">
+            <h1>SBI Bill Payments</h1>
+        </div>
+        <a href="{{ url_for('pay_bill') }}" class="btn btn-primary">Pay a Bill</a>
+        <h2>Your Bill Payments</h2>
+        {% for bill in bills %}
+        <div class="bill {{ 'paid' if bill.status == 'paid' else 'pending' }}">
+            <p>Bill Type: {{ bill.bill_type }}</p>
+            <p>Bill Number: {{ bill.bill_number }}</p>
+            <p>Amount: ₹{{ bill.amount }}</p>
+            <p>Due Date: {{ bill.due_date }}</p>
+            <p>Status: {{ bill.status }}</p>
+        </div>
+        {% endfor %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to SBI Dashboard</a>
+    </div>
+</body>
+</html>
